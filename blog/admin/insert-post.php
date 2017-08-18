@@ -45,7 +45,7 @@ include_once '../config.php';
 		<div class="col-md-12">
 			<footer>
 				This my motherfoka footer <br>
-				<a href="admin/index.php"> Admin Panel</a>
+				<a href="index.php"> Admin Panel</a>
 			</footer>
 		</div>
 	</div>
