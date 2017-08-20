@@ -7,6 +7,7 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use App\Models\BlogPost;
 use Illuminate\Database\Eloquent\Model;
+use Sirius\Validation\Validator;
 
 class PostsController extends BaseController{
 
@@ -27,15 +28,28 @@ class PostsController extends BaseController{
 
     public function postCreate()
     {
-        //admin/posts/create POST
-        $blogPost = new BlogPost([
-            'title'     => $_POST['title'],
-            'content'   => $_POST['content']
-        ]);
-        $blogPost->save();
+        $errors = [];
+        $result =false;
+        $validator =new Validator();
+        $validator->add('title','required');
+        $validator->add('content','required');
 
-        $result = true;
+        if ($validator->validate($_POST)){
 
-        return $this->render('admin/insert-post.twig', ['result' => $result]);
+            $blogPost = new BlogPost([
+                'title'     => $_POST['title'],
+                'content'   => $_POST['content']
+            ]);
+            $blogPost->save();
+
+            $result = true;
+        }else{
+            $errors = $validator->getMessages();
+        }
+
+
+        return $this->render('admin/insert-post.twig', [
+            'result' => $result,
+            'errors' => $errors]);
     }
 }

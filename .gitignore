@@ -10,5 +10,5 @@ operators/
 databases/
 blog/vendor
 blog/databases/
-
+blog/.env
 oop/
