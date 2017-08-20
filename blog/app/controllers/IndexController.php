@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 
 use App\Models\BlogPost;
+use App\Models\User;
 
 class  IndexController extends BaseController{
     public function getIndex(){

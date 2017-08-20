@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Sirius\Validation\Validator;
 
-class UserController extends BaseController{
+class UsersController extends BaseController{
     public function getIndex(){
         $user= User::all();
         return $this->render('admin/users.twig',[
@@ -28,16 +28,17 @@ class UserController extends BaseController{
         $validator =new Validator();
         $validator->add('name','required');
         $validator->add('email','required');
+        $validator->add('password', 'required');
+        $validator->add('email', 'email');
+
 
         if ($validator->validate($_POST)){
 
-            $user = new User([
-                'name'     => $_POST['name'],
-                'email'   => $_POST['email'],
-                'password' => $_POST['password']
-            ]);
+            $user = new User();
+            $user->name     =   $_POST['name'];
+            $user->email    =   $_POST['email'];
+            $user->password =   password_hash($_POST['password'], PASSWORD_DEFAULT);
             $user->save();
-
             $result = true;
         }else{
             $errors = $validator->getMessages();
