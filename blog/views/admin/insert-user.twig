@@ -1,0 +1,49 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+    <h2> New Post </h2>
+    <p>
+        <a class="btn btn-default" href="{{ 'users/posts' | url }}"> Back</a>
+    </p>
+
+    {% if errors %}
+        <div class="alert alert-danger">
+            <ul>
+                {% for input, messages in errors %}
+                    {% for message in messages %}
+                        <li> {{ input }}{{ message }}</li>
+                    {% endfor %}
+                {% endfor %}
+
+            </ul>
+        </div>
+    {% endif %}
+    {% if result %}
+        <div class="alert alert-success">User Saved!</div>
+    {% endif %}
+    <form action="{{ 'admin/users/create' | url }}" method="post" role="form">
+        <legend>New User</legend>
+
+        <div class="form-group">
+            <label for="inputName">Name</label>
+            <input type="text" class="form-control" name="title" id="inputName" placeholder="Name">
+        </div>
+
+        <div class="form-group">
+            <label for="inputEmail"> Email</label>
+            <input type="text" class="form-control" name="email" id="inputEmail" placeholder="example@email.com">
+        </div>
+
+        <div class="form-group">
+            <label for="inputPassword"> Password</label>
+            <input type="password" class="form-control" name="password" id="inputPassword" placeholder="*******">
+        </div>
+
+
+        <br>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+
+{% endblock %}
